@@ -7,6 +7,3 @@ spring:
   jpa:
     hibernate.ddl-auto: create-drop
     show-sql: true
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
