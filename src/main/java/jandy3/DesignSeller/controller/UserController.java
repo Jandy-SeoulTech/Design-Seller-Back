@@ -39,29 +39,30 @@ public class UserController {
         return user.getId();
     }
 
-    @GetMapping("/login/oauth2/code/kakao")
+    @GetMapping("/auth/kakao/callback")
     public @ResponseBody String kakaoCallBack(String code) {
 
-        RestTemplate rt = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Contents-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("grant_type", "authorization_code");
-        params.add("client_id", "f48783f49d03bef07c4c21b53e293db9");
-        params.add("client_secret", "g7mjZblRpHqyt9nhsFL6PoHu4kOWhwvm");
-        params.add("redirect_uri","http://localhost:8080/login/oauth2/code/kakao");
-        params.add("code", code);
-
-        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
-
-        ResponseEntity response = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
-                HttpMethod.POST,
-                kakaoTokenRequest,
-                String.class
-        );
-        System.out.println("response: " + response);
-        return "response: " + response;
+//        RestTemplate rt = new RestTemplate();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Contents-type", "application/x-www-form-urlencoded;charset=utf-8");
+//
+//        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+//        params.add("grant_type", "authorization_code");
+//        params.add("client_id", "f48783f49d03bef07c4c21b53e293db9");
+//        params.add("client_secret", "g7mjZblRpHqyt9nhsFL6PoHu4kOWhwvm");
+//        params.add("redirect_uri","http://localhost:8080/login/oauth2/code/kakao");
+//        params.add("code", code);
+//
+//        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
+//
+//        ResponseEntity response = rt.exchange(
+//                "https://kauth.kakao.com/oauth/token",
+//                HttpMethod.POST,
+//                kakaoTokenRequest,
+//                String.class
+//        );
+//        System.out.println("response: " + response);
+//        return "response: " + response;
+        return "redirect:/auth?code="+"12341234";
     }
 }
