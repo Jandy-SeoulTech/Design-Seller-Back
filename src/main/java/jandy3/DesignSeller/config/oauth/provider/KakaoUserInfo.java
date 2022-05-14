@@ -19,7 +19,8 @@ public class KakaoUserInfo implements OAuth2UserInfo {
     @Override
     public String getName() {
         LinkedHashMap<String, Object> kakaoAccount = (LinkedHashMap<String, Object>) attributes.get("kakao_account");
-        return (String) kakaoAccount.get("email");
+        LinkedHashMap<String, String> profile = (LinkedHashMap<String, String>) kakaoAccount.get("profile");
+        return profile.get("nickname");
     }
 
     @Override
