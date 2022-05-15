@@ -1,10 +1,12 @@
 package jandy3.DesignSeller.config.oauth.handler;
 
 import jandy3.DesignSeller.config.AppProperties;
+import jandy3.DesignSeller.config.auth.PrincipalDetails;
 import jandy3.DesignSeller.config.oauth.exception.BadRequestException;
 import jandy3.DesignSeller.config.oauth.provider.TokenProvider;
 import jandy3.DesignSeller.config.oauth.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import jandy3.DesignSeller.config.oauth.utils.CookieUtils;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +53,13 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 //        String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
         String targetUrl = "http://localhost:3000/auth";
         String token = tokenProvider.createToken(authentication);
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        String nickname = principalDetails.getNickname();
+        System.out.println(nickname);
         return UriComponentsBuilder.fromUriString(targetUrl)
                 .queryParam("token", token)
-                .build().toUriString();
+                .queryParam("nickname", nickname)
+                .build().encode().toUriString();
     }
     protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);
