@@ -1,16 +1,12 @@
 package jandy3.DesignSeller.config.auth;
 
-import jandy3.DesignSeller.model.User;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import jandy3.DesignSeller.domain.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 public class PrincipalDetails implements UserDetails, OAuth2User {
     private static final long serialVersionUID = 1L;
@@ -28,9 +24,17 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         this.attributes = attributes;
     }
 
+    public static PrincipalDetails create(User user) {
+        List<GrantedAuthority> authorities = Collections.
+                singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        return new PrincipalDetails(user);
+    }
+
     public User getUser() {
         return user;
     }
+
+    public int getId() { return user.getId(); }
 
     @Override
     public String getPassword() {

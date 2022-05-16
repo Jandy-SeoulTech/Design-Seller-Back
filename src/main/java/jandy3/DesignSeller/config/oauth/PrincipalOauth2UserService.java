@@ -1,12 +1,11 @@
 package jandy3.DesignSeller.config.oauth;
 
-import java.util.Map;
 import java.util.Optional;
 
 import jandy3.DesignSeller.config.auth.PrincipalDetails;
 import jandy3.DesignSeller.config.oauth.provider.KakaoUserInfo;
 import jandy3.DesignSeller.config.oauth.provider.OAuth2UserInfo;
-import jandy3.DesignSeller.model.User;
+import jandy3.DesignSeller.domain.User;
 import jandy3.DesignSeller.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -14,7 +13,6 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import jandy3.DesignSeller.config.auth.PrincipalDetails;
 
 @Service
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
