@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,11 +22,14 @@ public class UserController {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private final ObjectMapper mapper;
+
     @GetMapping(value = "/user")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public String user(@CurrentUser PrincipalDetails principalDetails) {
-        return String.valueOf(userRepository.findById(principalDetails.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", principalDetails.getId())));
+    public String user(@CurrentUser PrincipalDetails principalDetails) throws JsonProcessingException {
+        User userById =  userRepository.findById(principalDetails.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", principalDetails.getId()));
+        return mapper.writeValueAsString(userById);
     }
 
     @PostMapping(value = "/join")
