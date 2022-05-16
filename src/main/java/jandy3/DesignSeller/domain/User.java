@@ -1,5 +1,6 @@
-package jandy3.DesignSeller.model;
+package jandy3.DesignSeller.domain;
 
+import jandy3.DesignSeller.domain.embed.Address;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -30,4 +31,6 @@ public class User {
     @CreationTimestamp
     private Timestamp createDate;
 
+    @Embedded
+    private Address address;
 }
