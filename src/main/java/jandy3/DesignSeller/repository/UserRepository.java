@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Transactional
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
     // SELECT * FROM user WHERE provider = ?1 and providerId = ?2
