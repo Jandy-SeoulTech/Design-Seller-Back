@@ -32,7 +32,7 @@ public class PrincipalDetailsService implements UserDetailsService {
     }
 
     @Transactional
-    public UserDetails loadUserById(Integer id) {
+    public UserDetails loadUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("User", "id", id)
         );
