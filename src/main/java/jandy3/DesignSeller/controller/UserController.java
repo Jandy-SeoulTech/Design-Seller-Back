@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/join")
-    public @ResponseBody int join(User user) {
+    public @ResponseBody Long join(User user) {
         user.setRole("ROLE_USER");
         String encPassword = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(encPassword);
