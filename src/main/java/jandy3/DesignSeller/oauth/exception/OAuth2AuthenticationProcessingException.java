@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.config.oauth.exception;
+package jandy3.DesignSeller.oauth.exception;
 
 import org.springframework.security.core.AuthenticationException;
 public class OAuth2AuthenticationProcessingException extends AuthenticationException {

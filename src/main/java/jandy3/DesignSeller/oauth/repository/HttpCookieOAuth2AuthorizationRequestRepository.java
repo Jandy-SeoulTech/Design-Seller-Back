@@ -1,7 +1,7 @@
-package jandy3.DesignSeller.config.oauth.repository;
+package jandy3.DesignSeller.oauth.repository;
 
 import com.nimbusds.oauth2.sdk.util.StringUtils;
-import jandy3.DesignSeller.config.oauth.utils.CookieUtils;
+import jandy3.DesignSeller.oauth.utils.CookieUtils;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.stereotype.Component;

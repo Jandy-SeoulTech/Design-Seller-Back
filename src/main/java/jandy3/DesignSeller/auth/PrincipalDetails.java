@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.config.auth;
+package jandy3.DesignSeller.auth;
 
 import jandy3.DesignSeller.domain.User;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.config.oauth;
+package jandy3.DesignSeller.oauth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;

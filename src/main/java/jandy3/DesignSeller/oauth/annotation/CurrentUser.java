@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.config.oauth.annotation;
+package jandy3.DesignSeller.oauth.annotation;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

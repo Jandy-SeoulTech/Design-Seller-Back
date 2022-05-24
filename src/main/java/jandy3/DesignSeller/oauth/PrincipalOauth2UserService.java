@@ -1,10 +1,10 @@
-package jandy3.DesignSeller.config.oauth;
+package jandy3.DesignSeller.oauth;
 
 import java.util.Optional;
 
-import jandy3.DesignSeller.config.auth.PrincipalDetails;
-import jandy3.DesignSeller.config.oauth.provider.KakaoUserInfo;
-import jandy3.DesignSeller.config.oauth.provider.OAuth2UserInfo;
+import jandy3.DesignSeller.auth.PrincipalDetails;
+import jandy3.DesignSeller.oauth.provider.KakaoUserInfo;
+import jandy3.DesignSeller.oauth.provider.OAuth2UserInfo;
 import jandy3.DesignSeller.domain.User;
 import jandy3.DesignSeller.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

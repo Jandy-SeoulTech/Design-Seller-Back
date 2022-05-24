@@ -1,7 +1,7 @@
-package jandy3.DesignSeller.config.oauth.filter;
+package jandy3.DesignSeller.oauth.filter;
 
-import jandy3.DesignSeller.config.auth.PrincipalDetailsService;
-import jandy3.DesignSeller.config.oauth.provider.TokenProvider;
+import jandy3.DesignSeller.auth.PrincipalDetailsService;
+import jandy3.DesignSeller.oauth.provider.TokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

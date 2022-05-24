@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.config.oauth.utils;
+package jandy3.DesignSeller.oauth.utils;
 
 import org.springframework.util.SerializationUtils;
 import javax.servlet.http.Cookie;

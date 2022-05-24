@@ -1,9 +1,8 @@
 package jandy3.DesignSeller.controller;
 
-import jandy3.DesignSeller.config.auth.PrincipalDetails;
-import jandy3.DesignSeller.config.oauth.annotation.CurrentUser;
+import jandy3.DesignSeller.auth.PrincipalDetails;
+import jandy3.DesignSeller.oauth.annotation.CurrentUser;
 import jandy3.DesignSeller.dto.ImageResponse;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

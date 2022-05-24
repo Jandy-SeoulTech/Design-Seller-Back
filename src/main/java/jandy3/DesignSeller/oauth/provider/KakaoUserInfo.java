@@ -1,6 +1,5 @@
-package jandy3.DesignSeller.config.oauth.provider;
+package jandy3.DesignSeller.oauth.provider;
 
-import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

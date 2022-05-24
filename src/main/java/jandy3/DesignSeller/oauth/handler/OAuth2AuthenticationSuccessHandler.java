@@ -1,12 +1,11 @@
-package jandy3.DesignSeller.config.oauth.handler;
+package jandy3.DesignSeller.oauth.handler;
 
 import jandy3.DesignSeller.config.AppProperties;
-import jandy3.DesignSeller.config.auth.PrincipalDetails;
-import jandy3.DesignSeller.config.oauth.exception.BadRequestException;
-import jandy3.DesignSeller.config.oauth.provider.TokenProvider;
-import jandy3.DesignSeller.config.oauth.repository.HttpCookieOAuth2AuthorizationRequestRepository;
-import jandy3.DesignSeller.config.oauth.utils.CookieUtils;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import jandy3.DesignSeller.auth.PrincipalDetails;
+import jandy3.DesignSeller.oauth.exception.BadRequestException;
+import jandy3.DesignSeller.oauth.provider.TokenProvider;
+import jandy3.DesignSeller.oauth.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import jandy3.DesignSeller.oauth.utils.CookieUtils;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
 
-import static jandy3.DesignSeller.config.oauth.repository.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static jandy3.DesignSeller.oauth.repository.HttpCookieOAuth2AuthorizationRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
 @Component
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {

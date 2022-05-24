@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.config.oauth.exception;
+package jandy3.DesignSeller.oauth.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

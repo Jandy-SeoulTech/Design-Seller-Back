@@ -1,9 +1,9 @@
-package jandy3.DesignSeller.config.oauth.provider;
+package jandy3.DesignSeller.oauth.provider;
 
 
 import io.jsonwebtoken.*;
 import jandy3.DesignSeller.config.AppProperties;
-import jandy3.DesignSeller.config.auth.PrincipalDetails;
+import jandy3.DesignSeller.auth.PrincipalDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;

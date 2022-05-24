@@ -1,6 +1,6 @@
-package jandy3.DesignSeller.config.auth;
+package jandy3.DesignSeller.auth;
 
-import jandy3.DesignSeller.config.oauth.exception.ResourceNotFoundException;
+import jandy3.DesignSeller.oauth.exception.ResourceNotFoundException;
 import jandy3.DesignSeller.domain.User;
 import jandy3.DesignSeller.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
