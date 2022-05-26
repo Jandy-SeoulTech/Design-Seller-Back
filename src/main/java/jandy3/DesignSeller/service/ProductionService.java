@@ -4,8 +4,14 @@ import jandy3.DesignSeller.oauth.exception.ResourceNotFoundException;
 import jandy3.DesignSeller.domain.Production;
 import jandy3.DesignSeller.repository.ProductionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +29,11 @@ public class ProductionService {
     @Transactional(readOnly = false)
     public int updateView(Long id) {
         return productionRepository.updateView(id);
+    }
+
+    public List<Production> getPostListPage(Pageable pageable) {
+        Page<Production> postPage = productionRepository.findAll(pageable);
+        List<Production> posts = postPage.getContent();
+        return posts;
     }
 }
