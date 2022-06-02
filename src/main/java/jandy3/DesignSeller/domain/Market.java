@@ -22,7 +22,7 @@ public class Market {
     private String description;
     private String marketImage;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 

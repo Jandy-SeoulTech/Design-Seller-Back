@@ -20,7 +20,7 @@ public class ProductionOption {
 
     private Integer price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "production_id")
     @JsonIgnore
     private Production production;

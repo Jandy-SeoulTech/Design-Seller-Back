@@ -23,7 +23,7 @@ public class Production {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "production")
     private List<ProductionOption> productionOptions = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
 
