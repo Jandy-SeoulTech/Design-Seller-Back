@@ -11,7 +11,7 @@ public class ProductionImage {
 
     @Id
     @GeneratedValue
-    @Column(name = "production_image_name")
+    @Column(name = "production_image_id")
     private String id;
 
     private String imageName;
