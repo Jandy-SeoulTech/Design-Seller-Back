@@ -18,6 +18,9 @@ public class Production {
     @Column(name = "production_id")
     private Long id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private ProductionThumbnailImage productionThumbnailImage;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<ProductionImage> productionImages = new ArrayList<>();
 
