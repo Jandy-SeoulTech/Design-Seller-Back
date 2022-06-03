@@ -7,6 +7,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Data
@@ -38,4 +40,7 @@ public class User {
 
     @Embedded
     private Address address;
+
+    @OneToMany(mappedBy = "user")
+    private List<Request> requests = new ArrayList<>();
 }
