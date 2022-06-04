@@ -1,6 +1,7 @@
 package jandy3.DesignSeller.controller;
 
 import jandy3.DesignSeller.auth.PrincipalDetails;
+import jandy3.DesignSeller.dto.IdResponse;
 import jandy3.DesignSeller.oauth.annotation.CurrentUser;
 import jandy3.DesignSeller.domain.Market;
 import jandy3.DesignSeller.dto.MarketRequest;
@@ -20,7 +21,7 @@ public class MarketController {
 
     @PostMapping(value = "/market/new")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public ApiResponse createMarket(
+    public IdResponse createMarket(
             @CurrentUser PrincipalDetails principalDetails,
             @RequestBody MarketRequest marketRequest
     ) {
@@ -31,7 +32,8 @@ public class MarketController {
         market.setName(marketRequest.getName());
         market.setDescription(marketRequest.getDescription());
         market.setMarketImage(marketRequest.getMarketImage());
-        marketService.createMarket(market);
-        return new ApiResponse(true, "Create Market");
+        Long marketId = marketService.createMarket(market);
+
+        return new IdResponse(true, marketId);
     }
 }
