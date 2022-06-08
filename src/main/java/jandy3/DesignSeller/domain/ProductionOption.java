@@ -15,7 +15,7 @@ public class ProductionOption {
     @Id
     @GeneratedValue
     @Column(name = "production_option_id")
-    private String id;
+    private Long id;
 
     private String name;
 
