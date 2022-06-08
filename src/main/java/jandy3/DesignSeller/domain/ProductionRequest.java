@@ -37,10 +37,10 @@ public class ProductionRequest {
     }
 
     //==생성 메서드==//
-    public static ProductionRequest createProductionRequest(ProductionOption productionOption, int requestPrice, int count) {
+    public static ProductionRequest createProductionRequest(ProductionOption productionOption, int count) {
         ProductionRequest productionRequest = new ProductionRequest();
         productionRequest.setProductionOption(productionOption);
-        productionRequest.setRequestPrice(requestPrice);
+        productionRequest.setRequestPrice(productionOption.getPrice());
         productionRequest.setCount(count);
         return productionRequest;
 
