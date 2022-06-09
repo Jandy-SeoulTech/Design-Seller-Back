@@ -1,11 +1,11 @@
 package jandy3.DesignSeller.config;
 
-import jandy3.DesignSeller.config.oauth.PrincipalOauth2UserService;
-import jandy3.DesignSeller.config.oauth.RestAuthenticationEntryPoint;
-import jandy3.DesignSeller.config.oauth.filter.TokenAuthenticationFilter;
-import jandy3.DesignSeller.config.oauth.handler.OAuth2AuthenticationFailureHandler;
-import jandy3.DesignSeller.config.oauth.handler.OAuth2AuthenticationSuccessHandler;
-import jandy3.DesignSeller.config.oauth.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import jandy3.DesignSeller.oauth.PrincipalOauth2UserService;
+import jandy3.DesignSeller.oauth.RestAuthenticationEntryPoint;
+import jandy3.DesignSeller.oauth.filter.TokenAuthenticationFilter;
+import jandy3.DesignSeller.oauth.handler.OAuth2AuthenticationFailureHandler;
+import jandy3.DesignSeller.oauth.handler.OAuth2AuthenticationSuccessHandler;
+import jandy3.DesignSeller.oauth.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-//import jandy3.DesignSeller.config.oauth.PrincipalOauth2UserService;
+//import jandy3.DesignSeller.oauth.PrincipalOauth2UserService;
 
 @Configuration // IoC 빈(bean)을 등록
 @EnableWebSecurity // 필터 체인 관리 시작 어노테이션

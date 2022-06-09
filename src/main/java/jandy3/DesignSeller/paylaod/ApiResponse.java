@@ -7,6 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ApiResponse {
     private boolean success;
-    private String messege;
+    private String message;
     // Getters and Setters (Omitted for brevity)
 }
