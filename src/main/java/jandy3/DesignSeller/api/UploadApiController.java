@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.controller;
+package jandy3.DesignSeller.api;
 
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.oauth.annotation.CurrentUser;
@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-public class UploadController {
+public class UploadApiController {
     @PostMapping(value = "/uploads")
     public ImageResponse upload(
             @CurrentUser PrincipalDetails principalDetails,

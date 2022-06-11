@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.controller;
+package jandy3.DesignSeller.api;
 
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.dto.IdResponse;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class RequestController {
+public class RequestApiController {
     private final RequestService requestService;
 
     @PostMapping(value = "/request/new")

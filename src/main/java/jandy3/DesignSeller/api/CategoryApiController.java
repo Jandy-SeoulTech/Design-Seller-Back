@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.controller;
+package jandy3.DesignSeller.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class CategoryController {
+public class CategoryApiController {
 
     private final ObjectMapper mapper;
 

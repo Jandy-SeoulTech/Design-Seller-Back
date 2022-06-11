@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.controller;
+package jandy3.DesignSeller.api;
 
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.oauth.annotation.CurrentUser;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequiredArgsConstructor
-public class UserController {
+public class UserApiController {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
