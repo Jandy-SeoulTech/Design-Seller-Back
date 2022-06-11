@@ -1,4 +1,4 @@
-package jandy3.DesignSeller.controller;
+package jandy3.DesignSeller.api;
 
 import jandy3.DesignSeller.dto.ProductionListResponse;
 import jandy3.DesignSeller.dto.ProductionResponse;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class ProductionController {
+public class ProductionApiController {
     private final ProductionService productionService;
 
     @GetMapping(value ="/production/list")
