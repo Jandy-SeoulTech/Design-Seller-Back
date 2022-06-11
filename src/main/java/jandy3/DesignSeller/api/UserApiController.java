@@ -21,26 +21,4 @@ public class UserApiController {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    private final ObjectMapper mapper;
-
-    @GetMapping(value = "/user")
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public String user(@CurrentUser PrincipalDetails principalDetails) throws JsonProcessingException {
-        User userById =  userRepository.findById(principalDetails.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", principalDetails.getId()));
-        return mapper.writeValueAsString(userById);
-    }
-
-    @PostMapping(value = "/join")
-    public @ResponseBody Long join(User user) {
-        user.setRole("ROLE_USER");
-        String encPassword = bCryptPasswordEncoder.encode(user.getPassword());
-        user.setPassword(encPassword);
-        System.out.println(user.getId());
-
-        userRepository.save(user);
-
-        return user.getId();
-    }
 }
