@@ -1,11 +1,20 @@
 package jandy3.DesignSeller.repository;
 
 import jandy3.DesignSeller.domain.Category;
-import org.springframework.data.jpa.repository.JpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
 import java.util.List;
 
-public interface CategoryRepository extends JpaRepository<Category, Long> {
-    List<Category> findByParentId(Long parent);
+@Repository
+@RequiredArgsConstructor
+public class CategoryRepository {
+
+    private final EntityManager em;
+
+    public List<Category> findParentCategories() {
+        return em.createQuery("select c from Category as c where c.parent.id is null", Category.class)
+                .getResultList();
+    }
 }
