@@ -1,11 +1,11 @@
 package jandy3.DesignSeller.config;
 
-import jandy3.DesignSeller.oauth.PrincipalOauth2UserService;
-import jandy3.DesignSeller.oauth.RestAuthenticationEntryPoint;
-import jandy3.DesignSeller.oauth.filter.TokenAuthenticationFilter;
-import jandy3.DesignSeller.oauth.handler.OAuth2AuthenticationFailureHandler;
-import jandy3.DesignSeller.oauth.handler.OAuth2AuthenticationSuccessHandler;
-import jandy3.DesignSeller.oauth.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import jandy3.DesignSeller.auth.service.PrincipalOauth2UserService;
+import jandy3.DesignSeller.auth.RestAuthenticationEntryPoint;
+import jandy3.DesignSeller.auth.filter.TokenAuthenticationFilter;
+import jandy3.DesignSeller.auth.handler.OAuth2AuthenticationFailureHandler;
+import jandy3.DesignSeller.auth.handler.OAuth2AuthenticationSuccessHandler;
+import jandy3.DesignSeller.auth.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

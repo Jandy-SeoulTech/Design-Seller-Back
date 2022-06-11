@@ -3,7 +3,7 @@ package jandy3.DesignSeller.api;
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.dto.IdResponse;
 import jandy3.DesignSeller.dto.RequestInfo;
-import jandy3.DesignSeller.oauth.annotation.CurrentUser;
+import jandy3.DesignSeller.auth.annotation.CurrentUser;
 import jandy3.DesignSeller.service.RequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

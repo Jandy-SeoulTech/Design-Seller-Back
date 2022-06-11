@@ -2,7 +2,7 @@ package jandy3.DesignSeller.service;
 
 import jandy3.DesignSeller.domain.*;
 import jandy3.DesignSeller.dto.ProductionOptionInfo;
-import jandy3.DesignSeller.oauth.exception.ResourceNotFoundException;
+import jandy3.DesignSeller.exception.ResourceNotFoundException;
 import jandy3.DesignSeller.repository.ProductionOptionRepository;
 import jandy3.DesignSeller.repository.ProductionRepository;
 import jandy3.DesignSeller.repository.RequestRepository;
