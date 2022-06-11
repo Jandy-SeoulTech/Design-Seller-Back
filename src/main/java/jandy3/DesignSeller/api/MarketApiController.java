@@ -2,7 +2,7 @@ package jandy3.DesignSeller.api;
 
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.dto.IdResponse;
-import jandy3.DesignSeller.oauth.annotation.CurrentUser;
+import jandy3.DesignSeller.auth.annotation.CurrentUser;
 import jandy3.DesignSeller.domain.Market;
 import jandy3.DesignSeller.dto.MarketRequest;
 import jandy3.DesignSeller.service.MarketService;

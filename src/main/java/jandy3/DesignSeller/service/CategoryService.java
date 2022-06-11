@@ -14,9 +14,7 @@ import java.util.List;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
-    public List<Category> findParents() {
-        return categoryRepository.findByParentId(null);
+    public List<Category> findParentCategories() {
+        return categoryRepository.findParentCategories();
     }
-
-
 }
