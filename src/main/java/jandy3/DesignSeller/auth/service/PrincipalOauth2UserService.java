@@ -1,5 +1,6 @@
 package jandy3.DesignSeller.auth.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import jandy3.DesignSeller.auth.PrincipalDetails;
@@ -7,6 +8,8 @@ import jandy3.DesignSeller.auth.provider.KakaoUserInfo;
 import jandy3.DesignSeller.auth.provider.OAuth2UserInfo;
 import jandy3.DesignSeller.domain.User;
 import jandy3.DesignSeller.repository.UserRepository;
+import jandy3.DesignSeller.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -15,10 +18,12 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final UserService userService;
 
     // userRequest 는 code를 받아서 accessToken을 응답 받은 객체
     @Override
@@ -47,18 +52,17 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
         //System.out.println("oAuth2UserInfo.getProvider() : " + oAuth2UserInfo.getProvider());
         //System.out.println("oAuth2UserInfo.getProviderId() : " + oAuth2UserInfo.getProviderId());
-        Optional<User> userOptional =
+        List<User> findUsers =
                 userRepository.findByProviderAndProviderId(oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId());
         User user;
-        if (userOptional.isPresent()) {
-            user = userOptional.get();
+        if (!findUsers.isEmpty() && findUsers.size() == 1) {
+            user = findUsers.get(0);
             // user가 존재하면 update 해주기
-            user.setEmail(oAuth2UserInfo.getEmail());
-            userRepository.save(user);
+            userService.update(user.getId(), oAuth2UserInfo.getName(), oAuth2UserInfo.getImage());
         } else {
             // user의 패스워드가 null이기 때문에 OAuth 유저는 일반적인 로그인을 할 수 없음.
             user = User.builder()
-                    .username(oAuth2UserInfo.getProvider() + "_" + oAuth2UserInfo.getProviderId())
+                    .name(oAuth2UserInfo.getProvider() + "_" + oAuth2UserInfo.getProviderId())
                     .nickname(oAuth2UserInfo.getName())
                     .email(oAuth2UserInfo.getEmail())
                     .profileImage(oAuth2UserInfo.getImage())
@@ -66,7 +70,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
                     .provider(oAuth2UserInfo.getProvider())
                     .providerId(oAuth2UserInfo.getProviderId())
                     .build();
-            userRepository.save(user);
+            userService.join(user);
         }
 
         return new PrincipalDetails(user, oAuth2User.getAttributes());

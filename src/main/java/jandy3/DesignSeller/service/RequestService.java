@@ -29,8 +29,7 @@ public class RequestService {
     @Transactional
     public Long createRequest(Long userId, List<ProductionOptionInfo> productionOptionInfos, List<String> requestFilenames) {
         // 유저 조회
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+        User user = userRepository.findOne(userId);
         // 제작 조회
         List<ProductionRequest> productionRequests = new ArrayList<>(); // ProductionRequest 리스트 생성
         for (ProductionOptionInfo productionOptionInfo : productionOptionInfos) {
