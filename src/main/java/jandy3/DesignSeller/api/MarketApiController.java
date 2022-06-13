@@ -1,38 +1,59 @@
 package jandy3.DesignSeller.api;
 
 import jandy3.DesignSeller.auth.PrincipalDetails;
-import jandy3.DesignSeller.dto.IdResponse;
 import jandy3.DesignSeller.auth.annotation.CurrentUser;
 import jandy3.DesignSeller.domain.Market;
-import jandy3.DesignSeller.dto.MarketRequest;
 import jandy3.DesignSeller.service.MarketService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1")
 public class MarketApiController {
 
     private final MarketService marketService;
 
     @PostMapping(value = "/market/new")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public IdResponse createMarket(
+    public CreateMarketResponse createMarket(
             @CurrentUser PrincipalDetails principalDetails,
-            @RequestBody MarketRequest marketRequest
+            @RequestBody @Valid CreateMarketRequest createMarketRequest
     ) {
 
-        //Long userId = principalDetails.getId();
+        Long userId = principalDetails.getId();
         Market market = new Market();
         market.setUser(principalDetails.getUser());
-        market.setName(marketRequest.getName());
-        market.setDescription(marketRequest.getDescription());
-        market.setMarketImage(marketRequest.getMarketImage());
+        market.setName(createMarketRequest.getName());
+        market.setDescription(createMarketRequest.getDescription());
+        market.setMarketImage(createMarketRequest.getMarketImage());
         Long marketId = marketService.createMarket(market);
 
-        return new IdResponse(true, marketId);
+        return new CreateMarketResponse(marketId);
+    }
+
+    @AllArgsConstructor
+    @Data
+    static class CreateMarketResponse {
+        private Long id;
+    }
+
+    @Data
+    static class CreateMarketRequest {
+        @NotEmpty
+        private String name;
+        @NotEmpty
+        private String description;
+        private String marketImage;
     }
 }

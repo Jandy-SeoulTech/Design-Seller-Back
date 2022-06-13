@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yaml.snakeyaml.error.Mark;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -14,7 +15,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MarketService {
     private final MarketRepository marketRepository;
-    @Transactional(readOnly = false)
+
+    @Transactional
     public Long createMarket(Market market) {
         validateDuplicateMarket(market.getUser().getId());
         marketRepository.save(market);
@@ -22,9 +24,9 @@ public class MarketService {
     }
 
     private void validateDuplicateMarket(Long userId) {
-        Optional<Market> market = marketRepository.findByUserId(userId);
+        List<Market> market = marketRepository.findByUserId(userId);
         if(!market.isEmpty()){
-            throw new IllegalStateException("already exist");
+            throw new IllegalStateException("market already exist");
         }
     }
 
