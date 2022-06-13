@@ -21,6 +21,10 @@ public class MarketRepository {
         em.persist(market);
     }
 
+    public Market findOne(Long id) {
+        return em.find(Market.class, id);
+    }
+
     public List<Market> findByUserId(Long userId) {
         return em.createQuery("select m from Market m where m.user.id = :userId", Market.class)
                 .setParameter("userId", userId)
