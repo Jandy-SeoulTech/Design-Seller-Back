@@ -2,6 +2,7 @@ package jandy3.DesignSeller.service;
 
 import jandy3.DesignSeller.exception.ResourceNotFoundException;
 import jandy3.DesignSeller.domain.Production;
+import jandy3.DesignSeller.repository.ProductionPageRepository;
 import jandy3.DesignSeller.repository.ProductionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,20 +20,19 @@ import java.util.List;
 public class ProductionService {
     private final ProductionRepository productionRepository;
 
+    private final ProductionPageRepository productionPageRepository;
 //    public List<Production> findAll
 
     public Production findById(Long id) {
-        Production production = productionRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Production", "id", id));
-        return production;
+        return productionRepository.findById(id);
     }
     @Transactional(readOnly = false)
-    public int updateView(Long id) {
-        return productionRepository.updateView(id);
+    public void updateView(Long id) {
+        productionRepository.updateView(id);
     }
 
     public List<Production> getPostListPage(Pageable pageable) {
-        Page<Production> postPage = productionRepository.findAll(pageable);
+        Page<Production> postPage = productionPageRepository.findAll(pageable);
         List<Production> posts = postPage.getContent();
         return posts;
     }

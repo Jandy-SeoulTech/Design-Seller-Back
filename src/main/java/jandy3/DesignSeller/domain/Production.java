@@ -1,6 +1,5 @@
 package jandy3.DesignSeller.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -18,7 +17,15 @@ public class Production {
     @Column(name = "production_id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    private String name;
+
+    private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private ProductionThumbnailImage productionThumbnailImage;
 
     @OneToMany(cascade = CascadeType.ALL)
@@ -29,14 +36,17 @@ public class Production {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-    @JsonIgnore
     private Category category;
 
-    @CreationTimestamp
-    private Timestamp createDate;
-    @UpdateTimestamp
-    private Timestamp updateDate;
+    @Column(columnDefinition = "integer default 0", nullable = false, name = "likes")
+    private Integer like;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private Integer view;
+
+    @CreationTimestamp
+    private Timestamp createDate;
+
+    @UpdateTimestamp
+    private Timestamp updateDate;
 }
