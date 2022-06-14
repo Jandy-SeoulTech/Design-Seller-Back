@@ -1,11 +1,6 @@
 package jandy3.DesignSeller.api;
 
 import jandy3.DesignSeller.domain.Production;
-import jandy3.DesignSeller.domain.ProductionImage;
-import jandy3.DesignSeller.domain.ProductionOption;
-import jandy3.DesignSeller.domain.ProductionThumbnailImage;
-import jandy3.DesignSeller.dto.ProductionListResponse;
-import jandy3.DesignSeller.dto.ProductionResponse;
 import jandy3.DesignSeller.service.ProductionService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +30,8 @@ public class ProductionApiController {
                                 thumbnail = p.getProductionThumbnailImage().getImageName();
 
                             return new ProductionDto(
-                                    p.getId(), p.getName(),
+                                    p.getId(),
+                                    p.getName(),
                                     p.getCompany().getName(),
                                     thumbnail,
                                     p.getCategory().getName(),
@@ -50,9 +45,52 @@ public class ProductionApiController {
     }
 
     @GetMapping(value = "/production/{productionId}")
-    public ProductionResponse getProductionById(@PathVariable Long productionId) {
+    public ProductionDetailResponse getProductionById(@PathVariable Long productionId) {
         productionService.updateView(productionId);
-        return new ProductionResponse(true, productionService.findById(productionId));
+        Production production = productionService.findById(productionId);
+
+        List<String> images = production.getProductionImages().stream()
+                .map(i -> i.getImageName())
+                .collect(Collectors.toList());
+
+        List<ProductionOptionDto> options = production.getProductionOptions().stream()
+                .map(o -> new ProductionOptionDto(o.getName(), o.getPrice()))
+                .collect(Collectors.toList());
+
+        String thumbnailImage = production.getProductionThumbnailImage() != null ? production.getProductionThumbnailImage().getImageName() : "";
+
+        return new ProductionDetailResponse(
+                productionId,
+                production.getName(),
+                production.getCompany().getName(),
+                thumbnailImage,
+                images,
+                production.getDescription(),
+                production.getCategory().getName(),
+                production.getLike(),
+                options
+        );
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class ProductionDetailResponse {
+        private Long id;
+        private String name;
+        private String company;
+        private String productionThumbnailImage;
+        private List<String> productionImages;
+        private String description;
+        private String category;
+        private Integer like;
+        private List<ProductionOptionDto> options;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class ProductionOptionDto {
+        private String name;
+        private Integer price;
     }
 
     @Data
@@ -66,10 +104,10 @@ public class ProductionApiController {
     static class ProductionDto {
         private Long id;
         private String name;
-        private String marketName;
+        private String company;
         private String productionThumbnailImage;
         private String category;
-        private int like;
+        private Integer like;
     }
 
     @Data
