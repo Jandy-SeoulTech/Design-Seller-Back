@@ -32,8 +32,7 @@ public class RequestService {
         List<ProductionRequest> productionRequests = new ArrayList<>(); // ProductionRequest 리스트 생성
         for (ProductionOptionInfo productionOptionInfo : productionOptionInfos) {
             Long productionOptionId = productionOptionInfo.getProductionOptionId();
-            ProductionOption productionOption = productionOptionRepository.findById(productionOptionId)
-                    .orElseThrow(() -> new ResourceNotFoundException("ProductionOption", "id", productionOptionId));
+            ProductionOption productionOption = productionOptionRepository.findOne(productionOptionId);
             productionRequests.add(
                     ProductionRequest.createProductionRequest(
                             productionOption, productionOptionInfo.getCount()
@@ -44,6 +43,8 @@ public class RequestService {
         for (String requestFilename : requestFilenames) {
             requestFiles.add(RequestFile.createRequestFile(requestFilename));
         }
-        return requestRepository.save(Request.createRequest(user, productionRequests, requestFiles)).getId();
+        Request request = Request.createRequest(market, productionRequests, requestFiles);
+        requestRepository.save(request);
+        return request.getId();
     }
 }
