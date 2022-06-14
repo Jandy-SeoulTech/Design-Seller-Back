@@ -19,8 +19,7 @@ public class Company {
 
     private String name;
 
-    @OneToMany()
-    @JoinColumn(name = "company_id")
+    @OneToMany(mappedBy = "company")
     private List<Production> productions = new ArrayList<>();
 
     @CreationTimestamp
