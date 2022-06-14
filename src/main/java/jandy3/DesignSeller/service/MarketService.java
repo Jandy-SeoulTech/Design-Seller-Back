@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yaml.snakeyaml.error.Mark;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +25,13 @@ public class MarketService {
     }
 
     private void validateDuplicateMarket(Long userId) {
-        List<Market> market = marketRepository.findByUserId(userId);
-        if(!market.isEmpty()){
-            throw new IllegalStateException("market already exist");
+        try {
+            Market market = marketRepository.findByUserId(userId);
+        } catch(NoResultException e) {
+            return;
         }
+
+        throw new IllegalStateException("market already exist");
     }
 
 }

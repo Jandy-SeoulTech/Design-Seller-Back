@@ -16,8 +16,8 @@ public class Request {
     private Long id;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "market_id")
+    private Market market;
 
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     private List<ProductionRequest> productionRequests = new ArrayList<>();
@@ -29,9 +29,9 @@ public class Request {
     private List<RequestFile> requestFiles = new ArrayList<>();
 
     //== 연관관계 편의 메서드 ==//
-    public void setUser(User user) {
-        this.user = user;
-        user.getRequests().add(this);
+    public void setMarket(Market market) {
+        this.market = market;
+        market.getRequests().add(this);
     }
 
     public void addProductionRequest(ProductionRequest productionRequest) {
@@ -45,9 +45,9 @@ public class Request {
     }
     //== 생성 메서드 ==//
 
-    public static Request createRequest(User user, List<ProductionRequest> productionRequests, List<RequestFile> requestFiles) {
+    public static Request createRequest(Market market, List<ProductionRequest> productionRequests, List<RequestFile> requestFiles) {
         Request request = new Request();
-        request.setUser(user);
+        request.setMarket(market);
         for (ProductionRequest productionRequest : productionRequests) {
             request.addProductionRequest(productionRequest);
         }

@@ -2,17 +2,12 @@ package jandy3.DesignSeller.service;
 
 import jandy3.DesignSeller.domain.*;
 import jandy3.DesignSeller.dto.ProductionOptionInfo;
-import jandy3.DesignSeller.exception.ResourceNotFoundException;
-import jandy3.DesignSeller.repository.ProductionOptionRepository;
-import jandy3.DesignSeller.repository.ProductionRepository;
-import jandy3.DesignSeller.repository.RequestRepository;
-import jandy3.DesignSeller.repository.UserRepository;
+import jandy3.DesignSeller.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -23,6 +18,7 @@ public class RequestService {
     private final UserRepository userRepository;
     private final ProductionRepository productionRepository;
     private final ProductionOptionRepository productionOptionRepository;
+    private final MarketRepository marketRepository;
     /**
      * 주문
      */
@@ -30,6 +26,8 @@ public class RequestService {
     public Long createRequest(Long userId, List<ProductionOptionInfo> productionOptionInfos, List<String> requestFilenames) {
         // 유저 조회
         User user = userRepository.findOne(userId);
+        // 마켓 조회
+        Market market = marketRepository.findByUserId(userId);
         // 제작 조회
         List<ProductionRequest> productionRequests = new ArrayList<>(); // ProductionRequest 리스트 생성
         for (ProductionOptionInfo productionOptionInfo : productionOptionInfos) {

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +26,9 @@ public class MarketRepository {
         return em.find(Market.class, id);
     }
 
-    public List<Market> findByUserId(Long userId) {
+    public Market findByUserId(Long userId) throws NoResultException {
         return em.createQuery("select m from Market m where m.user.id = :userId", Market.class)
                 .setParameter("userId", userId)
-                .getResultList();
+                .getSingleResult();
     }
 }
