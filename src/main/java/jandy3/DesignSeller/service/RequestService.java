@@ -18,7 +18,7 @@ public class RequestService {
     private final UserRepository userRepository;
     private final ProductionRepository productionRepository;
     private final ProductionOptionRepository productionOptionRepository;
-    private final MarketRepository marketRepository;
+    private final MarketService marketService;
     /**
      * 주문
      */
@@ -27,7 +27,7 @@ public class RequestService {
         // 유저 조회
         User user = userRepository.findOne(userId);
         // 마켓 조회
-        Market market = marketRepository.findByUserId(userId);
+        Market market = marketService.findByUserId(userId);
         // 제작 조회
         List<ProductionRequest> productionRequests = new ArrayList<>(); // ProductionRequest 리스트 생성
         for (ProductionOptionInfo productionOptionInfo : productionOptionInfos) {

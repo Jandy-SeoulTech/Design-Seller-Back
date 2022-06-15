@@ -26,9 +26,9 @@ public class MarketRepository {
         return em.find(Market.class, id);
     }
 
-    public Market findByUserId(Long userId) throws NoResultException {
+    public List<Market> findByUserId(Long userId) {
         return em.createQuery("select m from Market m where m.user.id = :userId", Market.class)
                 .setParameter("userId", userId)
-                .getSingleResult();
+                .getResultList();
     }
 }
