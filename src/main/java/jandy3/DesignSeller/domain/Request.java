@@ -77,15 +77,13 @@ public class Request {
     }
 
     public void setAddress(String street, String zipcode, String detail) {
-        street = street;
-        zipcode = zipcode;
-        detail = detail;
+        this.address = new Address(street, zipcode, detail);
     }
 
     public void setRequester(String requesterName, String phone, String email) {
-        requesterName = requesterName;
-        phone = phone;
-        email = email;
+        this.requesterName = requesterName;
+        this.phone = phone;
+        this.email = email;
     }
 
     //== 비즈니스 로직 ==//
