@@ -1,9 +1,13 @@
 package jandy3.DesignSeller.domain;
 
+import jandy3.DesignSeller.domain.embed.Address;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +31,14 @@ public class Request {
 
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     private List<RequestFile> requestFiles = new ArrayList<>();
+
+    @Embedded
+    private Address address;
+
+    @CreationTimestamp
+    private Timestamp createDate;
+    @UpdateTimestamp
+    private Timestamp updateDate;
 
     //== 연관관계 편의 메서드 ==//
     public void setMarket(Market market) {
@@ -54,7 +66,7 @@ public class Request {
         for(RequestFile requestFile : requestFiles) {
             request.addRequestFile(requestFile);
         }
-        request.setStatus(RequestStatus.REQUEST);
+        request.setStatus(RequestStatus.UNCHECKED);
         return request;
     }
     //== 비즈니스 로직 ==//

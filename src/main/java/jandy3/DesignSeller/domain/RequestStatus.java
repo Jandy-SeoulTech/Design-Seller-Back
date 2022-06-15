@@ -1,5 +1,5 @@
 package jandy3.DesignSeller.domain;
 
 public enum RequestStatus {
-    REQUEST, CANCEL
+    UNCHECKED, CHECKED, READY, SHIPPING, DELIVERED
 }
