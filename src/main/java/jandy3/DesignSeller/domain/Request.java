@@ -32,6 +32,12 @@ public class Request {
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     private List<RequestFile> requestFiles = new ArrayList<>();
 
+    private String requesterName;
+
+    private String phone;
+
+    private String email;
+
     @Embedded
     private Address address;
 
@@ -87,5 +93,4 @@ public class Request {
     public int getTotalPrice() {
         return productionRequests.stream().mapToInt(ProductionRequest::getTotalPrice).sum();
     }
-
 }
