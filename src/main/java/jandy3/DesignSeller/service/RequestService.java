@@ -1,7 +1,9 @@
 package jandy3.DesignSeller.service;
 
 import jandy3.DesignSeller.domain.*;
+import jandy3.DesignSeller.dto.AddressDto;
 import jandy3.DesignSeller.dto.ProductionOptionInfo;
+import jandy3.DesignSeller.dto.RequesterDto;
 import jandy3.DesignSeller.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ public class RequestService {
      * 주문
      */
     @Transactional
-    public Long createRequest(Long userId, List<ProductionOptionInfo> productionOptionInfos, List<String> requestFilenames) {
+    public Long createRequest(Long userId, List<ProductionOptionInfo> productionOptionInfos, List<String> requestFilenames, AddressDto addressDto, RequesterDto requesterDto) {
         // 유저 조회
         User user = userRepository.findOne(userId);
         // 마켓 조회
@@ -38,12 +40,19 @@ public class RequestService {
                             productionOption, productionOptionInfo.getCount()
                     ));
         }
+
         // 제작 파일 추가
         List<RequestFile> requestFiles = new ArrayList<>();
         for (String requestFilename : requestFilenames) {
             requestFiles.add(RequestFile.createRequestFile(requestFilename));
         }
         Request request = Request.createRequest(market, productionRequests, requestFiles);
+
+        // 배송지 지정
+        request.setAddress(addressDto.getStreet(), addressDto.getZipcode(), addressDto.getDetail());
+
+        // 의뢰자 지정
+        request.setRequester(requesterDto.getName(), requesterDto.getPhone(), requesterDto.getEmail());
         requestRepository.save(request);
         return request.getId();
     }
