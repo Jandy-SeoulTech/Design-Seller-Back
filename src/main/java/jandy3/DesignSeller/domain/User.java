@@ -40,7 +40,4 @@ public class User {
 
     @Embedded
     private Address address;
-
-    @OneToMany(mappedBy = "user")
-    private List<Request> requests = new ArrayList<>();
 }
