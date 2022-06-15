@@ -2,7 +2,9 @@ package jandy3.DesignSeller.api;
 
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.auth.annotation.CurrentUser;
+import jandy3.DesignSeller.dto.AddressDto;
 import jandy3.DesignSeller.dto.ProductionOptionInfo;
+import jandy3.DesignSeller.dto.RequesterDto;
 import jandy3.DesignSeller.service.RequestService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +28,14 @@ public class RequestApiController {
             @CurrentUser PrincipalDetails principalDetails,
             @RequestBody CreateRequestInfo createRequestInfo) {
         Long requestId = requestService
-                .createRequest(principalDetails.getId(), createRequestInfo.getOptions(), createRequestInfo.getRequestFiles());
+                .createRequest(
+                        principalDetails.getId(),
+                        createRequestInfo.getOptions(),
+                        createRequestInfo.getRequestFiles(),
+                        createRequestInfo.getAddress(),
+                        createRequestInfo.getRequester()
+                );
+
         return new CreateRequestResponse(requestId);
     }
 
@@ -42,5 +51,7 @@ public class RequestApiController {
         private Long productionId;
         private List<ProductionOptionInfo> options;
         private List<String> requestFiles;
+        private AddressDto address;
+        private RequesterDto requester;
     }
 }

@@ -75,6 +75,19 @@ public class Request {
         request.setStatus(RequestStatus.UNCHECKED);
         return request;
     }
+
+    public void setAddress(String street, String zipcode, String detail) {
+        street = street;
+        zipcode = zipcode;
+        detail = detail;
+    }
+
+    public void setRequester(String requesterName, String phone, String email) {
+        requesterName = requesterName;
+        phone = phone;
+        email = email;
+    }
+
     //== 비즈니스 로직 ==//
     /**
      * 의뢰 취소
