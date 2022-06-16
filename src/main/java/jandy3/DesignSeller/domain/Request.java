@@ -23,6 +23,9 @@ public class Request {
     @JoinColumn(name = "market_id")
     private Market market;
 
+    @Setter
+    private int totalPrice;
+
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     private List<ProductionRequest> productionRequests = new ArrayList<>();
 
@@ -32,6 +35,7 @@ public class Request {
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     private List<RequestFile> requestFiles = new ArrayList<>();
 
+    // 주문자 정보
     private String requesterName;
 
     private String phone;
