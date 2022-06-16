@@ -31,7 +31,8 @@ public class ProductionApiController {
                                 p.getCompany().getName(),
                                 p.getThumbnailImage(),
                                 p.getCategory().getName(),
-                                p.getLike())
+                                p.getLike(),
+                                p.getView())
                 ).collect(Collectors.toList());
 
         return new Result(collect);
@@ -59,6 +60,7 @@ public class ProductionApiController {
                 production.getDescription(),
                 production.getCategory().getName(),
                 production.getLike(),
+                production.getView(),
                 options
         );
     }
@@ -73,7 +75,8 @@ public class ProductionApiController {
         private List<String> productionImages;
         private String description;
         private String category;
-        private Integer like;
+        private int like;
+        private int view;
         private List<ProductionOptionDto> options;
     }
 
@@ -98,6 +101,7 @@ public class ProductionApiController {
         private String company;
         private String productionThumbnailImage;
         private String category;
-        private Integer like;
+        private int like;
+        private int view;
     }
 }
