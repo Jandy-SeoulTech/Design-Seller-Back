@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Table(name = "production_image")
 public class ProductionImage {
 
     @Id
@@ -15,4 +16,8 @@ public class ProductionImage {
     private String id;
 
     private String imageName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "production_id")
+    private Production production;
 }

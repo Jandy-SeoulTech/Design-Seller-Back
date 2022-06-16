@@ -20,26 +20,18 @@ import java.util.stream.Collectors;
 public class ProductionApiController {
     private final ProductionService productionService;
 
-    @GetMapping(value ="/production/list")
+    @GetMapping(value = "/production/list")
     public Result getProductionList(Pageable pageable) {
         List<ProductionDto> collect = productionService.getPostListPage(pageable)
                 .stream().map(
-                        p -> {
-                            String thumbnail = "";
-                            if(p.getProductionThumbnailImage() != null)
-                                thumbnail = p.getProductionThumbnailImage().getImageName();
-
-                            return new ProductionDto(
-                                    p.getId(),
-                                    p.getName(),
-                                    p.getCompany().getName(),
-                                    thumbnail,
-                                    p.getCategory().getName(),
-                                    p.getLike()
-                            );
-                        }
-                )
-                .collect(Collectors.toList());
+                        p -> new ProductionDto(
+                                p.getId(),
+                                p.getName(),
+                                p.getCompany().getName(),
+                                p.getThumbnailImage(),
+                                p.getCategory().getName(),
+                                p.getLike())
+                ).collect(Collectors.toList());
 
         return new Result(collect);
     }
@@ -57,13 +49,11 @@ public class ProductionApiController {
                 .map(o -> new ProductionOptionDto(o.getName(), o.getPrice()))
                 .collect(Collectors.toList());
 
-        String thumbnailImage = production.getProductionThumbnailImage() != null ? production.getProductionThumbnailImage().getImageName() : "";
-
         return new ProductionDetailResponse(
                 productionId,
                 production.getName(),
                 production.getCompany().getName(),
-                thumbnailImage,
+                production.getThumbnailImage(),
                 images,
                 production.getDescription(),
                 production.getCategory().getName(),
