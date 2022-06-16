@@ -31,6 +31,8 @@ public class RequestService {
         // 마켓 조회
         Market market = marketService.findByUserId(userId);
         // 제작 조회
+
+        int totalPrice = 0;
         List<ProductionRequest> productionRequests = new ArrayList<>(); // ProductionRequest 리스트 생성
         for (ProductionOptionInfo productionOptionInfo : productionOptionInfos) {
             Long productionOptionId = productionOptionInfo.getProductionOptionId();
@@ -39,6 +41,7 @@ public class RequestService {
                     ProductionRequest.createProductionRequest(
                             productionOption, productionOptionInfo.getCount()
                     ));
+            totalPrice += productionOption.getPrice() * productionOptionInfo.getCount();
         }
 
         // 제작 파일 추가
@@ -51,6 +54,8 @@ public class RequestService {
         // 배송지 지정
         request.setAddress(addressDto.getStreet(), addressDto.getZipcode(), addressDto.getDetail());
 
+        // 총액 지정
+        request.setTotalPrice(totalPrice);
         // 의뢰자 지정
         request.setRequester(requesterDto.getName(), requesterDto.getPhone(), requesterDto.getEmail());
         requestRepository.save(request);

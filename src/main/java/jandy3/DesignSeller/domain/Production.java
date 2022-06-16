@@ -25,10 +25,9 @@ public class Production {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private ProductionThumbnailImage productionThumbnailImage;
+    private String thumbnailImage;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "production")
     private List<ProductionImage> productionImages = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "production")
