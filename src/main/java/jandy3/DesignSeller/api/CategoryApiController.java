@@ -1,6 +1,7 @@
 package jandy3.DesignSeller.api;
 
 import jandy3.DesignSeller.domain.Category;
+import jandy3.DesignSeller.dto.Result;
 import jandy3.DesignSeller.service.CategoryService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,12 +27,6 @@ public class CategoryApiController {
                 .map(c -> new CategoryDto(c.getId(),c.getName(), c.getChild()))
                 .collect(Collectors.toList());
         return new Result(collect);
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class Result<T> {
-        private T data;
     }
 
     @Data

@@ -1,6 +1,7 @@
 package jandy3.DesignSeller.api;
 
 import jandy3.DesignSeller.domain.Production;
+import jandy3.DesignSeller.dto.Result;
 import jandy3.DesignSeller.service.ProductionService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -98,11 +99,5 @@ public class ProductionApiController {
         private String productionThumbnailImage;
         private String category;
         private Integer like;
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class Result<T> {
-        private T data;
     }
 }
