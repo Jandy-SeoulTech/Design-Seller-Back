@@ -1,5 +1,8 @@
 package jandy3.DesignSeller.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.auth.annotation.CurrentUser;
 import jandy3.DesignSeller.dto.*;
@@ -11,11 +14,15 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 
 import static java.util.stream.Collectors.*;
 
+@Api(tags = {"제작 요청 API"})
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
@@ -23,6 +30,7 @@ public class RequestApiController {
     private final RequestService requestService;
     private final RequestQueryRepository requestQueryRepository;
 
+    @ApiOperation(value = "제작 의로 리스트 조회")
     @GetMapping(value = "/request/list")
     public Result requestList() {
         List<RequestFlatDto> flats = requestQueryRepository.findByDto_flat();
@@ -36,10 +44,11 @@ public class RequestApiController {
         return new Result(collect);
     }
 
+    @ApiOperation(value = "제작 의뢰 생성")
     @PostMapping(value = "/request/new")
     public CreateRequestResponse createRequest(
             @CurrentUser PrincipalDetails principalDetails,
-            @RequestBody CreateRequestInfo createRequestInfo) {
+            @RequestBody @Valid CreateRequestInfo createRequestInfo) {
 
         Long requestId = requestService
                 .createRequest(
@@ -61,11 +70,21 @@ public class RequestApiController {
 
     @Data
     @Getter
+    @Schema
     static class CreateRequestInfo {
+        @Schema(name = "제작 상품 id")
+        @NotEmpty
         private Long productionId;
+        @Schema(name = "제작 상품 옵션")
+        @NotEmpty
         private List<ProductionOptionInfo> options;
+        @Schema(name = "첨부 파일")
         private List<String> requestFiles;
+        @Schema(name = "배송지 주소")
+        @NotNull
         private AddressDto address;
+        @Schema(name = "의뢰자 정보")
+        @NotNull
         private RequesterDto requester;
     }
 }
