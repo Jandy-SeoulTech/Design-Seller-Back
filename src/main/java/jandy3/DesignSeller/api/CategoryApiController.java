@@ -48,7 +48,7 @@ public class CategoryApiController {
             this.name = name;
             if(child != null) {
                 subcategory = child.stream()
-                        .map(c -> new CategoryDto(c.getId(), c.getName(), null))
+                        .map(c -> new CategoryDto(c.getId(), c.getName(), c.getChild()))
                         .collect(Collectors.toList());
             }
         }
