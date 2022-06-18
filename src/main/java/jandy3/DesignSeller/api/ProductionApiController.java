@@ -8,10 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,10 +23,11 @@ public class ProductionApiController {
     @ApiOperation(value = "제작 리스트 조회")
     @GetMapping(value = "/production/list")
     public Result getProductionList(
+            @RequestParam(required = false) Long categoryId,
             @ApiParam(value = "예시: {ip}:8080/production/list?page=0&size=5&sort=view,DESC")
             Pageable pageable
     ) {
-        List<ProductionDto> collect = productionService.getPostListPage(pageable)
+        List<ProductionDto> collect = productionService.getProductionList(categoryId, pageable)
                 .stream().map(
                         p -> new ProductionDto(
                                 p.getId(),
