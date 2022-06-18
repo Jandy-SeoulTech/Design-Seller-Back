@@ -40,9 +40,7 @@ public class ProductionRepository {
                 .executeUpdate();
     }
 
-    public Production findById(Long id) {
-        return em.createQuery("select p from Production p where p.id = :id", Production.class)
-                .setParameter("id", id)
-                .getSingleResult();
+    public Production findOne(Long id) {
+        return em.find(Production.class, id);
     }
 }

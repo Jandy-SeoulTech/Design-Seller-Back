@@ -24,12 +24,6 @@ public class UserRepository {
         return em.find(User.class, id);
     }
 
-    public List<User> findById(Long id) {
-        return em.createQuery("select u from User as u where u.id = :id", User.class)
-                .setParameter("id", id)
-                .getResultList();
-    }
-
     public User findByUsername(String username) {
         return em.createQuery("select u from User as u where u.username = :username", User.class)
                 .setParameter("username", username)

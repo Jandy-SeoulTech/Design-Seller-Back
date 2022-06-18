@@ -16,7 +16,7 @@ public class ProductionService {
     private final ProductionRepository productionRepository;
 
     public Production findById(Long id) {
-        return productionRepository.findById(id);
+        return productionRepository.findOne(id);
     }
     @Transactional(readOnly = false)
     public void updateView(Long id) {
