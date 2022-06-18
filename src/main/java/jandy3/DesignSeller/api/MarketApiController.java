@@ -1,5 +1,9 @@
 package jandy3.DesignSeller.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.auth.annotation.CurrentUser;
 import jandy3.DesignSeller.domain.Market;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+@Api(tags = {"마켓 API"})
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
@@ -24,8 +29,8 @@ public class MarketApiController {
 
     private final MarketService marketService;
 
+    @ApiOperation(value = "마켓 생성")
     @PostMapping(value = "/market/new")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public CreateMarketResponse createMarket(
             @CurrentUser PrincipalDetails principalDetails,
             @RequestBody @Valid CreateMarketRequest createMarketRequest
@@ -42,18 +47,25 @@ public class MarketApiController {
         return new CreateMarketResponse(marketId);
     }
 
+    @Schema(name = "마켓 생성 응답")
     @AllArgsConstructor
     @Data
     static class CreateMarketResponse {
+        @Schema(name = "생성된 마켓의 id")
         private Long id;
     }
 
+    @Schema(name = "마켓 생성 요청")
     @Data
     static class CreateMarketRequest {
+        @Schema(description = "마켓 이름")
         @NotEmpty
         private String name;
+
+        @Schema(description = "마켓 설명")
         @NotEmpty
         private String description;
+        @Schema(description = "마켓 이미지 이름")
         private String marketImage;
     }
 }

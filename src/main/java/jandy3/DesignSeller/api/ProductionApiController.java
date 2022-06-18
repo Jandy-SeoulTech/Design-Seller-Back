@@ -1,5 +1,6 @@
 package jandy3.DesignSeller.api;
 
+import io.swagger.annotations.*;
 import jandy3.DesignSeller.domain.Production;
 import jandy3.DesignSeller.dto.Result;
 import jandy3.DesignSeller.service.ProductionService;
@@ -15,14 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Api(tags = {"제작 API"})
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
 public class ProductionApiController {
     private final ProductionService productionService;
 
+    @ApiOperation(value = "제작 리스트 조회")
     @GetMapping(value = "/production/list")
-    public Result getProductionList(Pageable pageable) {
+    public Result getProductionList(
+            @ApiParam(value = "예시: {ip}:8080/production/list?page=0&size=5&sort=view,DESC")
+            Pageable pageable
+    ) {
         List<ProductionDto> collect = productionService.getPostListPage(pageable)
                 .stream().map(
                         p -> new ProductionDto(
@@ -38,8 +44,12 @@ public class ProductionApiController {
         return new Result(collect);
     }
 
+    @ApiOperation(value = "제작 상세 조회")
     @GetMapping(value = "/production/{productionId}")
-    public ProductionDetailResponse getProductionById(@PathVariable Long productionId) {
+    public ProductionDetailResponse getProductionById(
+            @ApiParam(value = "해당 id를 가진 제작 상세 조회")
+            @PathVariable Long productionId
+    ) {
         productionService.updateView(productionId);
         Production production = productionService.findById(productionId);
 
