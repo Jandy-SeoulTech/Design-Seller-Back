@@ -1,5 +1,7 @@
 package jandy3.DesignSeller.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jandy3.DesignSeller.exception.ImageNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -17,12 +19,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@Api(tags = "이미지 api")
 @RestController
 public class ImageController {
 
     @Value("${spring.servlet.multipart.location}")
     private String path;
 
+    @ApiOperation(value = "이미지 요청")
     @GetMapping(value = "/images/{fileOriginName}")
     public ResponseEntity<Resource> getImageByName(@PathVariable("fileOriginName") String fileName) {
         try {
