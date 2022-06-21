@@ -13,6 +13,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    public User findOne(Long id) {
+        return userRepository.findOne(id);
+    }
+
     @Transactional
     public Long join(User user) {
         userRepository.save(user);
