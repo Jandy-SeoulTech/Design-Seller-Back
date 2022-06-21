@@ -1,6 +1,5 @@
 package jandy3.DesignSeller.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +18,6 @@ public class RequestFile {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id")
-    @JsonIgnore
     @Setter
     private Request request;
 

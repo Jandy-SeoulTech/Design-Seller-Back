@@ -1,6 +1,5 @@
 package jandy3.DesignSeller.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +19,6 @@ public class Category {
 
     private String name;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
@@ -29,7 +27,6 @@ public class Category {
     private List<Category> child = new ArrayList<>();
 
     @OneToMany(mappedBy = "category")
-    @JsonIgnore
     private List<Production> productions = new ArrayList<>();
 
     //==연관관계 편의 메서드==//
