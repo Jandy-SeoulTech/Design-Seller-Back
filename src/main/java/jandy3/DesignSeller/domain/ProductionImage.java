@@ -1,6 +1,5 @@
 package jandy3.DesignSeller.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 
 import javax.persistence.*;
