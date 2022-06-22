@@ -4,20 +4,10 @@ import io.swagger.annotations.Api;
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.auth.annotation.CurrentUser;
 import jandy3.DesignSeller.dto.ImageResponse;
-import jandy3.DesignSeller.exception.ImageNotFoundException;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,11 +29,10 @@ public class UploadApiController {
             StringBuilder sb = new StringBuilder();
             String fileName = file.getOriginalFilename();
             String ext = fileName.substring(fileName.lastIndexOf(".") + 1);
-            // file name format: {date}_{provider}_{providerId}.{file type}
+            // file name format: {date}_{fileOriginalName}.{file type}
             sb.append(date.getTime());
             sb.append("_");
-            sb.append(principalDetails.getUsername());
-            sb.append("." + ext);
+            sb.append(fileName);
             images.add(sb.toString());
             File newFileName = new File(sb.toString());
             try {
@@ -54,6 +43,4 @@ public class UploadApiController {
         }
         return new ImageResponse(images);
     }
-
-
 }
