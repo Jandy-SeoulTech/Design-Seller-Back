@@ -31,8 +31,16 @@ public class Market {
     @OneToMany(mappedBy = "market")
     private List<Request> requests = new ArrayList<>();
 
+    @OneToMany(mappedBy = "market")
+    private List<Item> items = new ArrayList<>();
+
     @CreationTimestamp
     private Timestamp createDate;
     @UpdateTimestamp
     private Timestamp updateDate;
+
+    //== 연관관계 편의 메서드 ==//
+    public void addItem(Item item) {
+        items.add(item);
+    }
 }
