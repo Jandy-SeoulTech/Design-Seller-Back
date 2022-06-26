@@ -1,5 +1,7 @@
 package jandy3.DesignSeller.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.auth.annotation.CurrentUser;
 import jandy3.DesignSeller.domain.*;
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Api(tags = {"쇼핑몰 상품 API"})
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1")
@@ -28,10 +32,11 @@ public class ItemApiController {
     private final MarketService marketService;
     private final HashtagService hashtagService;
 
+    @ApiOperation(value = "쇼핑몰 상품 생성")
     @PostMapping("/item/new")
     public CreateItemResponse createItem(
             @CurrentUser PrincipalDetails principalDetails,
-            @RequestBody CreateItemDto createItemDto
+            @RequestBody @Valid CreateItemDto createItemDto
     ) {
         Long userId = principalDetails.getId();
         // 유저 조회
