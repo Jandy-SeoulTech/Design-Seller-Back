@@ -15,7 +15,6 @@ public class ItemOption {
 
     private String name;
 
-    private int price;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
