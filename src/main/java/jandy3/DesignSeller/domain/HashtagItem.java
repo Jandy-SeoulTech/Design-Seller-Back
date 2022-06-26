@@ -26,7 +26,7 @@ public class HashtagItem {
     }
 
     public void setHashtag(Hashtag hashtag) {
-        this.item = item;
+        this.hashtag = hashtag;
     }
 
     //== 생성 메서드 ==//
