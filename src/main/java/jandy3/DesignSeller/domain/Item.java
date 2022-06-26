@@ -32,10 +32,10 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY)
     private Market market;
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<HashtagItem> hashtagItems = new ArrayList<>();
 
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<ItemThumbnailImage> itemThumbnailImages = new ArrayList<>();
 
     private ItemStatus itemStatus;

@@ -21,7 +21,7 @@ public class ItemOption {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    @OneToMany(mappedBy = "itemOption")
+    @OneToMany(mappedBy = "itemOption", cascade = CascadeType.ALL)
     private List<ItemOptionValue> itemOptionDetails = new ArrayList<>();
 
     //== constructor ==//
