@@ -12,7 +12,7 @@ public class ItemOptionValue {
     @Column(name = "item_option_detail_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_option_id")
     private ItemOption itemOption;
 
