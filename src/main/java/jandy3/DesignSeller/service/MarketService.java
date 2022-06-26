@@ -25,12 +25,14 @@ public class MarketService {
     }
 
     private void validateDuplicateMarket(Long userId) {
-        List<Market> markets = marketRepository.findByUserId(userId);
-        if(!markets.isEmpty()) {
-            throw new IllegalStateException("market already exist");
+        try{
+            Market market = marketRepository.findByUserId(userId);
+        } catch(NoResultException e) {
+            return;
         }
+        throw new IllegalStateException("market already exist");
     }
     public Market findByUserId(Long userId) {
-        return marketRepository.findByUserId(userId).get(0);
+        return marketRepository.findByUserId(userId);
     }
 }
