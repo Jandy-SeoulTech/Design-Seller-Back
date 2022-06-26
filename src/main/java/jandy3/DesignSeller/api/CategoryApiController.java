@@ -36,12 +36,12 @@ public class CategoryApiController {
     }
 
     @Data
-    @Schema(description = "카테고리")
+    @Schema(name = "카테고리")
     static class CategoryDto {
         private Long id;
-        @Schema(description = "카테고리 명")
+        @Schema(name = "카테고리 명")
         private String name;
-        @Schema(description = "하위 카테고리")
+        @Schema(name = "하위 카테고리")
         private List<CategoryDto> subcategory;
         public CategoryDto(Long id, String name, List<Category> child) {
             this.id = id;

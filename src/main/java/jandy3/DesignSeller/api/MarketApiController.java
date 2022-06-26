@@ -58,14 +58,14 @@ public class MarketApiController {
     @Schema(name = "마켓 생성 요청")
     @Data
     static class CreateMarketRequest {
-        @Schema(description = "마켓 이름")
+        @Schema(name = "마켓 이름")
         @NotEmpty
         private String name;
 
-        @Schema(description = "마켓 설명")
+        @Schema(name = "마켓 설명")
         @NotEmpty
         private String description;
-        @Schema(description = "마켓 이미지 이름")
+        @Schema(name = "마켓 이미지 이름")
         private String marketImage;
     }
 }
