@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.auth.annotation.CurrentUser;
 import jandy3.DesignSeller.domain.*;
+import jandy3.DesignSeller.domain.embed.Account;
+import jandy3.DesignSeller.domain.embed.ReturnAddress;
 import jandy3.DesignSeller.dto.CreateItemDto;
 import jandy3.DesignSeller.service.HashtagService;
 import jandy3.DesignSeller.service.ItemService;
@@ -69,10 +71,18 @@ public class ItemApiController {
         List<HashtagItem> hashtagItems = hashtags.stream().map(h -> HashtagItem.createHashtagItem(h))
                 .collect(Collectors.toList());
 
+        // 반품주소 생성
+        ReturnAddress returnAddress = new ReturnAddress(createItemDto.getReturnAddress().getName(), createItemDto.getReturnAddress().getAddress());
+
+        // 환불계좌 생성
+        Account returnAccount = new Account(createItemDto.getAccount().getBank(), createItemDto.getAccount().getAccountNumber());
+
         Item item = Item.createItem(
                 market, itemOptions, itemThumbnailImages, hashtagItems,
                 createItemDto.getPrice(), createItemDto.getName(), createItemDto.getTitle(),
-                createItemDto.getDescription(), createItemDto.getInfo(), createItemDto.getItemStatus());
+                createItemDto.getDescription(), createItemDto.getInfo(), createItemDto.getItemStatus()
+                , returnAddress, returnAccount
+        );
         itemService.createItem(item);
         return new CreateItemResponse(item.getId());
     }

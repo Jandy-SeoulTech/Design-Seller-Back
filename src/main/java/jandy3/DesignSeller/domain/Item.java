@@ -1,5 +1,7 @@
 package jandy3.DesignSeller.domain;
 
+import jandy3.DesignSeller.domain.embed.Account;
+import jandy3.DesignSeller.domain.embed.ReturnAddress;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -40,6 +42,12 @@ public class Item {
 
     private ItemStatus itemStatus;
 
+    @Embedded
+    private ReturnAddress returnAddress;
+
+    @Embedded
+    private Account returnAccount;
+
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<ItemOption> itemOptions = new ArrayList<>();
 
@@ -52,19 +60,21 @@ public class Item {
     //== constructor ==//
     private Item() {}
 
-    private Item(int price, String name, String title, String description, String info, ItemStatus itemStatus) {
+    private Item(int price, String name, String title, String description, String info, ItemStatus itemStatus, ReturnAddress returnAddress, Account returnAccount) {
         this.price = price;
         this.name = name;
         this.title = title;
         this.description = description;
         this.info = info;
         this.itemStatus = itemStatus;
+        this.returnAddress = returnAddress;
+        this.returnAccount = returnAccount;
     }
 
     //== 생성 메서드 ==//
     public static Item createItem(Market market, List<ItemOption> itemOptions, List<ItemThumbnailImage> itemThumbnailImages, List<HashtagItem> hashtagItems,
-                                  int price, String name, String title, String description, String info, ItemStatus itemStatus) {
-        Item item = new Item(price, name, title, description, info, itemStatus);
+                                  int price, String name, String title, String description, String info, ItemStatus itemStatus, ReturnAddress returnAddress, Account returnAccount) {
+        Item item = new Item(price, name, title, description, info, itemStatus, returnAddress, returnAccount);
 
         // 마켓 지정 & 마켓에 아이템 추가
         item.setMarket(market);
