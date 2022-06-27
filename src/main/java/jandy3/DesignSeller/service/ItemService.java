@@ -1,17 +1,14 @@
 package jandy3.DesignSeller.service;
 
 import jandy3.DesignSeller.domain.*;
-import jandy3.DesignSeller.dto.CreateItemDto;
-import jandy3.DesignSeller.dto.ItemOptionDto;
 import jandy3.DesignSeller.repository.HashtagRepository;
 import jandy3.DesignSeller.repository.ItemRepository;
-import jandy3.DesignSeller.repository.MarketRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +25,13 @@ public class ItemService {
     @Transactional
     public void createItem(Item item) {
         itemRepository.save(item);
+    }
+
+    public List<Item> findAll(Pageable pageable) {
+        return itemRepository.findAll(pageable);
+    }
+
+    public Item findOne(Long id) {
+        return itemRepository.findOne(id);
     }
 }

@@ -8,6 +8,9 @@ import jandy3.DesignSeller.domain.*;
 import jandy3.DesignSeller.domain.embed.Account;
 import jandy3.DesignSeller.domain.embed.ReturnAddress;
 import jandy3.DesignSeller.dto.CreateItemDto;
+import jandy3.DesignSeller.dto.ItemOptionDto;
+import jandy3.DesignSeller.dto.ItemOptionValueDto;
+import jandy3.DesignSeller.dto.Result;
 import jandy3.DesignSeller.service.HashtagService;
 import jandy3.DesignSeller.service.ItemService;
 import jandy3.DesignSeller.service.MarketService;
@@ -15,10 +18,8 @@ import jandy3.DesignSeller.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ItemApiController {
     private final HashtagService hashtagService;
 
     @ApiOperation(value = "쇼핑몰 상품 생성")
-    @PostMapping("/item/new")
+    @PostMapping(value = "/item/new")
     public CreateItemResponse createItem(
             @CurrentUser PrincipalDetails principalDetails,
             @RequestBody @Valid CreateItemDto createItemDto
@@ -85,6 +86,71 @@ public class ItemApiController {
         );
         itemService.createItem(item);
         return new CreateItemResponse(item.getId());
+    }
+
+    @GetMapping(value = "/item/list")
+    public Result getItemList(Pageable pageable) {
+        List<Item> items = itemService.findAll(pageable);
+
+        List<ItemDto> collect = items.stream().map(
+                i -> {
+                    return new ItemDto(i.getId(), i.getMarket().getName(), i.getName(), i.getPrice(), i.getLike());
+                }
+        ).collect(Collectors.toList());
+        return new Result(collect);
+    }
+
+    @GetMapping(value = "/item/{itemId}")
+    public ItemDetailResponse getItemDetail(@PathVariable Long itemId) {
+        Item item = itemService.findOne(itemId);
+        List<String> itemThumbnailImages = item.getItemThumbnailImages().stream()
+                .map(ti -> ti.getImageName())
+                .collect(Collectors.toList());
+        List<ItemOptionDto> itemOptions = item.getItemOptions().stream()
+                .map(io -> {
+                    List<ItemOptionValueDto> itemOptionValues = io.getItemOptionDetails().stream()
+                            .map(iod -> new ItemOptionValueDto(
+                                    iod.getName(),
+                                    iod.getStockQuantity(),
+                                    iod.getIsRequire()
+                            )).collect(Collectors.toList());
+                    return new ItemOptionDto(io.getName(), itemOptionValues);
+                }).collect(Collectors.toList());
+        return new ItemDetailResponse(
+                item.getId(),
+                item.getName(),
+                itemOptions,
+                item.getMarket().getName(),
+                itemThumbnailImages,
+                item.getTitle(),
+                item.getInfo(),
+                item.getDescription(),
+                item.getItemStatus()
+        );
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class ItemDetailResponse {
+        private Long id;
+        private String name;
+        private List<ItemOptionDto> itemOptions;
+        private String marketName;
+        private List<String> itemThumbnailImages;
+        private String title;
+        private String info;
+        private String description;
+        private ItemStatus itemStatus;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class ItemDto {
+        private Long id;
+        private String marketName;
+        private String name;
+        private int price;
+        private int like;
     }
 
     @Data
