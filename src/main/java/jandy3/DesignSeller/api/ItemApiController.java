@@ -17,6 +17,7 @@ import jandy3.DesignSeller.service.MarketService;
 import jandy3.DesignSeller.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -94,7 +95,7 @@ public class ItemApiController {
 
         List<ItemDto> collect = items.stream().map(
                 i -> {
-                    return new ItemDto(i.getId(), i.getMarket().getName(), i.getName(), i.getPrice(), i.getLike());
+                    return new ItemDto(i.getId(), i.getMarket().getName(), i.getItemThumbnailImages().get(0).getImageName(), i.getName(), i.getPrice(), i.getLike());
                 }
         ).collect(Collectors.toList());
         return new Result(collect);
@@ -149,6 +150,7 @@ public class ItemApiController {
         private Long id;
         private String marketName;
         private String name;
+        private String thumbnailImage;
         private int price;
         private int like;
     }
