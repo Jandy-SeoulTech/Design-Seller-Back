@@ -15,6 +15,7 @@ public class ItemThumbnailImage {
     private String imageName;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
     private Item item;
 
     //== 연관관계 편의 메서드 ==//

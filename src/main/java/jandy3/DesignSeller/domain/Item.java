@@ -32,6 +32,7 @@ public class Item {
     private Timestamp createDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "market_id")
     private Market market;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
