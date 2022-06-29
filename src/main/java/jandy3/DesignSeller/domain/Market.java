@@ -39,6 +39,9 @@ public class Market {
     @UpdateTimestamp
     private Timestamp updateDate;
 
+    @Column(name = "likes", columnDefinition = "integer default 0", nullable = false)
+    private int like;
+
     //== 연관관계 편의 메서드 ==//
     public void addItem(Item item) {
         items.add(item);
