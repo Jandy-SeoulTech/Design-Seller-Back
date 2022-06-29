@@ -9,12 +9,14 @@ import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.auth.annotation.CurrentUser;
 import jandy3.DesignSeller.domain.Market;
 import jandy3.DesignSeller.dto.Result;
+import jandy3.DesignSeller.repository.MarketRepository;
 import jandy3.DesignSeller.service.MarketService;
 import lombok.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.NoResultException;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 public class MarketApiController {
 
     private final MarketService marketService;
+    private final MarketRepository marketRepository;
 
     @ApiOperation(value = "마켓 생성")
     @PostMapping(value = "/market/new")
@@ -56,6 +59,28 @@ public class MarketApiController {
                 .map(m -> new MarketDto(m.getId(), m.getName(), m.getLike(), m.getMarketImage(), m.getDescription()))
                 .collect(Collectors.toList());
         return new Result(collect);
+    }
+
+    @ApiOperation(value = "마켓 이름 중복확인")
+    @GetMapping(value = "/market/check")
+    public CheckDto checkMarketName(
+            @ApiParam(value = "마켓 이름")
+            @RequestParam String name
+    ) {
+        try {
+            marketRepository.findByMarketName(name);
+        } catch(NoResultException e) {
+            return new CheckDto(true);
+        }
+        return new CheckDto(false);
+    }
+
+    @Schema(name = "사용가능여부")
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    static class CheckDto {
+        private boolean available;
     }
 
     @Schema(name = "마켓 생성 응답")

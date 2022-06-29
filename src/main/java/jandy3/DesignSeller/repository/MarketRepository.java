@@ -40,4 +40,10 @@ public class MarketRepository {
                 .setParameter("userId", userId)
                 .getSingleResult();
     }
+
+    public Market findByMarketName(String marketName) throws NoResultException {
+        return em.createQuery("select m from Market m where m.name = :marketName", Market.class)
+                .setParameter("marketName", marketName)
+                .getSingleResult();
+    }
 }
