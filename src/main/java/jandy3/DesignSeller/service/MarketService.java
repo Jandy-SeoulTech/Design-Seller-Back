@@ -3,6 +3,7 @@ package jandy3.DesignSeller.service;
 import jandy3.DesignSeller.domain.Market;
 import jandy3.DesignSeller.repository.MarketRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yaml.snakeyaml.error.Mark;
@@ -25,14 +26,19 @@ public class MarketService {
     }
 
     private void validateDuplicateMarket(Long userId) {
-        try{
+        try {
             Market market = marketRepository.findByUserId(userId);
-        } catch(NoResultException e) {
+        } catch (NoResultException e) {
             return;
         }
         throw new IllegalStateException("market already exist");
     }
+
     public Market findByUserId(Long userId) {
         return marketRepository.findByUserId(userId);
+    }
+
+    public List<Market> findAll(Pageable pageable) {
+        return marketRepository.findAll(pageable);
     }
 }

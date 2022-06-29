@@ -3,6 +3,7 @@ package jandy3.DesignSeller.repository;
 import jandy3.DesignSeller.domain.Market;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,14 @@ public class MarketRepository {
 
     public Market findOne(Long id) {
         return em.find(Market.class, id);
+    }
+
+    public List<Market> findAll(Pageable pageable) {
+        return em.createQuery("select m from Market m")
+                .setParameter("sort", pageable.getSort())
+                .setFirstResult(pageable.getPageNumber())
+                .setMaxResults(pageable.getPageSize())
+                .getResultList();
     }
 
     public Market findByUserId(Long userId) throws NoResultException {
