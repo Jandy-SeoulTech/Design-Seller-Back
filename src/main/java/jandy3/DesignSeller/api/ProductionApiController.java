@@ -29,14 +29,18 @@ public class ProductionApiController {
     ) {
         List<ProductionDto> collect = productionService.getProductionList(categoryId, pageable)
                 .stream().map(
-                        p -> new ProductionDto(
-                                p.getId(),
-                                p.getName(),
-                                p.getCompany().getName(),
-                                p.getThumbnailImage(),
-                                p.getCategory().getName(),
-                                p.getLike(),
-                                p.getView())
+                        p -> {
+                            int price = p.getProductionOptions().size()>0 ? p.getProductionOptions().get(0).getPrice() : 0;
+                            return new ProductionDto(
+                                    p.getId(),
+                                    p.getName(),
+                                    price,
+                                    p.getCompany().getName(),
+                                    p.getThumbnailImage(),
+                                    p.getCategory().getName(),
+                                    p.getLike(),
+                                    p.getView());
+                        }
                 ).collect(Collectors.toList());
 
         return new Result(collect);
@@ -106,6 +110,7 @@ public class ProductionApiController {
     static class ProductionDto {
         private Long id;
         private String name;
+        private int price;
         private String company;
         private String productionThumbnailImage;
         private String category;
