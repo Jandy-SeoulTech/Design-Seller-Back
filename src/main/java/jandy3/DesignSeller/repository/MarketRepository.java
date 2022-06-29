@@ -29,7 +29,6 @@ public class MarketRepository {
 
     public List<Market> findAll(Pageable pageable) {
         return em.createQuery("select m from Market m")
-                .setParameter("sort", pageable.getSort())
                 .setFirstResult(pageable.getPageNumber())
                 .setMaxResults(pageable.getPageSize())
                 .getResultList();
