@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import jandy3.DesignSeller.auth.PrincipalDetails;
 import jandy3.DesignSeller.auth.annotation.CurrentUser;
 import jandy3.DesignSeller.dto.ImageResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,8 +16,6 @@ import java.util.List;
 @Api(tags = {"파일 api"})
 @RestController
 public class UploadApiController {
-
-
 
     @PostMapping(value = "/uploads")
     public ImageResponse upload(
@@ -33,7 +32,7 @@ public class UploadApiController {
             sb.append(date.getTime());
             sb.append("_");
             sb.append(fileName);
-            images.add(sb.toString());
+            images.add("/images/" + sb.toString());
             File newFileName = new File(sb.toString());
             try {
                 file.transferTo(newFileName);
