@@ -60,7 +60,7 @@ public class ProductionApiController {
                 .collect(Collectors.toList());
 
         List<ProductionOptionDto> options = production.getProductionOptions().stream()
-                .map(o -> new ProductionOptionDto(o.getName(), o.getPrice()))
+                .map(o -> new ProductionOptionDto(o.getId(), o.getName(), o.getPrice()))
                 .collect(Collectors.toList());
 
         return new ProductionDetailResponse(
@@ -95,6 +95,7 @@ public class ProductionApiController {
     @Data
     @AllArgsConstructor
     static class ProductionOptionDto {
+        private Long optionId;
         private String name;
         private Integer price;
     }
