@@ -73,7 +73,7 @@ public class RequestApiController {
     @Schema
     static class CreateRequestInfo {
         @Schema(name = "제작 상품 id")
-        @NotEmpty
+        @NotNull
         private Long productionId;
         @Schema(name = "제작 상품 옵션")
         @NotEmpty
